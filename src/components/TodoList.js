@@ -1,4 +1,5 @@
 import React from "react";
+import "./TodoList.css";
 
 import TodoListItem from "./TodoListItem";
 
@@ -7,13 +8,13 @@ const TodoList = ({ todos }) => {
     const { id, ...todoProps } = todo;
 
     return (
-      <li key={id}>
+      <li key={id} className="list-group-item">
         <TodoListItem {...todoProps} />
       </li>
     );
   });
 
-  return <ul>{elements}</ul>;
+  return <ul className="list-group todo-list">{elements}</ul>;
 };
 
 export default TodoList;
