@@ -1,22 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import "./ItemStatusFilter.css";
 
-class ItemStatusFilter extends Component {
-  render() {
+const ItemStatusFilter = ({ filters, onFilter }) => {
+  const buttons = filters.map(({ id, enabled, label }) => {
     return (
-      <div className="btn-group">
-        <button type="button" className="btn btn-info">
-          All
-        </button>
-        <button type="button" className="btn btn-outline-secondary">
-          Active
-        </button>
-        <button type="button" className="btn btn-outline-secondary">
-          Done
-        </button>
-      </div>
+      <button
+        key={id}
+        type="button"
+        className={"btn" + (enabled ? " btn-info" : " btn-outline-secondary")}
+        onClick={() => onFilter(id)}
+      >
+        {label}
+      </button>
     );
-  }
-}
+  });
+
+  return <div className="btn-group">{buttons}</div>;
+};
 
 export default ItemStatusFilter;
