@@ -30,6 +30,12 @@ class App extends Component {
         label: "Done",
         enabled: false,
         filterFunc: data => data.filter(el => el.done)
+      },
+      {
+        id: 3,
+        label: "Important",
+        enabled: false,
+        filterFunc: data => data.filter(el => el.important)
       }
     ],
     todoData: [
