@@ -42,7 +42,8 @@ class App extends Component {
       this.createItem("Write letter"),
       this.createItem("Buy smartphone"),
       this.createItem("Kiss my girlfriend")
-    ]
+    ],
+    searchText: ""
   };
 
   createItem(label) {
@@ -111,19 +112,30 @@ class App extends Component {
     });
   };
 
+  setSearchText = text => {
+    this.setState({
+      searchText: text
+    });
+  };
+
   render() {
-    const { filters, todoData } = this.state;
+    const { filters, todoData, searchText } = this.state;
 
     const doneCount = todoData.filter(el => el.done).length;
     const todoCount = todoData.length - doneCount;
 
-    const data = filters.find(filter => filter.enabled).filterFunc(todoData);
+    const data = filters
+      .find(filter => filter.enabled)
+      .filterFunc(todoData)
+      .filter(todo =>
+        todo.label.toLowerCase().includes(searchText.toLowerCase())
+      );
 
     return (
       <div className="app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel searchText={searchText} onSearch={this.setSearchText} />
           <ItemStatusFilter
             filters={filters}
             onFilter={this.switchEnabledFilter}
