@@ -57,7 +57,7 @@ class App extends Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   };
 
-  onToggleImportant = id => {
+  toggleImportant = id => {
     this.setState(({ todoData }) => {
       return {
         todoData: this.toggleProperty(todoData, id, "important")
@@ -65,7 +65,7 @@ class App extends Component {
     });
   };
 
-  onToggleDone = id => {
+  toggleDone = id => {
     this.setState(({ todoData }) => {
       return {
         todoData: this.toggleProperty(todoData, id, "done")
@@ -89,8 +89,8 @@ class App extends Component {
         <TodoList
           todos={todoData}
           onDeleted={this.deleteItem}
-          onToggleDone={this.onToggleDone}
-          onToggleImportant={this.onToggleImportant}
+          onToggleDone={this.toggleDone}
+          onToggleImportant={this.toggleImportant}
         />
         <ItemAddForm onAdded={this.addItem} />
       </div>
