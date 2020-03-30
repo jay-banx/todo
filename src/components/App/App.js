@@ -112,11 +112,19 @@ class App extends Component {
     });
   };
 
-  setSearchText = text => {
-    this.setState({
-      searchText: text
-    });
+  setSearchText = searchText => {
+    this.setState({ searchText });
   };
+
+  searchData(arr, searchText) {
+    return arr.filter(item =>
+      item.label.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+
+  filterData(arr, filters) {
+    return filters.find(filter => filter.enabled).filterFunc(arr);
+  }
 
   render() {
     const { filters, todoData, searchText } = this.state;
@@ -124,12 +132,10 @@ class App extends Component {
     const doneCount = todoData.filter(el => el.done).length;
     const todoCount = todoData.length - doneCount;
 
-    const data = filters
-      .find(filter => filter.enabled)
-      .filterFunc(todoData)
-      .filter(todo =>
-        todo.label.toLowerCase().includes(searchText.toLowerCase())
-      );
+    const data = this.searchData(
+      this.filterData(todoData, filters),
+      searchText
+    );
 
     return (
       <div className="app">
